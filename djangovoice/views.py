@@ -158,6 +158,12 @@ class FeedbackSubmitView(FormView):
         if not feedback.user:
             feedback.slug = uuid.uuid1().hex[:10]
 
+        try:
+            import reversion
+            reversion.set_comment('Feedback submit')
+        except ImportError:
+            pass
+
         feedback.save()
 
         # If there is no user, show the feedback with slug
@@ -200,6 +206,12 @@ class FeedbackEditView(FormView):
         return super(FeedbackEditView, self).post(request, *args, **kwargs)
 
     def form_valid(self, form):
+        try:
+            import reversion
+            reversion.set_comment('Feedback edit')
+        except ImportError:
+            pass
+
         feedback = form.save()
 
         return HttpResponseRedirect(feedback.get_absolute_url())
