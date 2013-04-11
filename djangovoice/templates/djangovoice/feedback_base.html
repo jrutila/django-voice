@@ -14,7 +14,9 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
+          {% block brand %}
           <a class="brand" href="{% url brand_view %}">{{ site.name }} {% trans "Feedback" %}</a>
+          {% endblock brand %}
           <ul class="nav">
             {% block navigation %}
               <li><a href="{% url 'djangovoice_list' list='all' %}">{% trans "All" %}</a></li>
